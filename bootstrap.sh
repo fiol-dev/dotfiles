@@ -5,7 +5,7 @@ set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-apps=(homebrew claude-code vscodium google-chrome android-studio amneziavpn pycharm lazygit docker lazydocker)
+apps=(homebrew claude-code vscodium google-chrome android-studio amneziavpn pycharm lazygit docker lazydocker sddm)
 
 echo "Caelestia dotfiles bootstrap"
 echo "============================"

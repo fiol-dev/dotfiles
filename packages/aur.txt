@@ -12,3 +12,7 @@ caelestia-cli
 # extra/lazygit release; apps/lazygit/install.sh removes the stable
 # package first since the two conflict.
 lazygit-git
+
+# caelestia's SDDM login theme, minimalistV2 variant (see apps/sddm/install.sh
+# for the sudoers/sync-script/systemctl steps that go with it).
+caelestia-sddm-minimalistv2-git

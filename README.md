@@ -50,6 +50,11 @@ package install (extension restore, flags files, etc), or run each
   also means `install.sh` never touches it.
   `install.sh` runs `hyprctl reload` at the end (when Hyprland is actually
   running) so these changes take effect immediately.
+  `templates/sddm-theme.conf` is the caelestia SDDM theme's (minimalistV2)
+  user-customizable config — colors are templated (`#{{ primary.hex }}`
+  etc.) and filled in by `sync.sh` on every wallpaper/theme change (see
+  the SDDM row below); everything above that line (radius, blur, avatar
+  shape...) is yours to edit.
 - **VSCodium** — `settings.json`, `keybindings.json` (symlinked), plus
   `apps/vscodium/extensions.txt` (restored via `codium --install-extension`,
   regenerate with `codium --list-extensions`).
@@ -85,11 +90,23 @@ package install (extension restore, flags files, etc), or run each
 | lazygit | AUR `lazygit-git` (replaces stable `lazygit`) | `apps/lazygit/install.sh` |
 | Docker | official repo: `docker`, `docker-compose`, `docker-buildx` | `apps/docker/install.sh` |
 | lazydocker | official repo `lazydocker` | `apps/lazydocker/install.sh` |
+| SDDM + caelestia theme | official repo `sddm` + AUR `caelestia-sddm-minimalistv2-git` | `apps/sddm/install.sh` |
 
 Claude Code was already installed here via a native/npm install at
 `/usr/bin/claude`; `apps/claude-code/install.sh` adds the Homebrew cask
 alongside it — once brew's shellenv is sourced its Cellar wins on `PATH`,
 shadowing (not removing) the older install.
+
+SDDM: `apps/sddm/install.sh` installs the minimalistV2 variant of
+[caelestia-sddm](https://github.com/ItsABigIgloo/caelestia-sddm) (there's
+also `-locklike-git` and `-minimalist-git`; all three conflict since they
+share the same install path, `/usr/share/sddm/themes/caelestia`), sets up
+the `/etc/sudoers.d/caelestia-sddm-sync` NOPASSWD rule the theme's
+postHook needs (validated with `visudo -cf` before installing), runs a
+first sync, and `systemctl enable`s sddm. It does **not** `systemctl
+start` it — on a fresh install that's a reboot or a manual `systemctl
+start sddm` away, to avoid yanking an already-running session out from
+under you if you re-run this on a live machine.
 
 Docker: `apps/docker/install.sh` installs the engine, enables
 `docker.service`, and adds your user to the `docker` group automatically —

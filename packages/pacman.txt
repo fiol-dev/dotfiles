@@ -16,3 +16,6 @@ lazydocker
 
 # JetBrains PyCharm Community (see apps/pycharm/install.sh)
 pycharm-community-edition
+
+# Display manager (see apps/sddm/install.sh for the caelestia theme + sync setup)
+sddm
