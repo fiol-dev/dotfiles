@@ -38,7 +38,24 @@ link_one() {
 
   mkdir -p "$(dirname "$dest")"
 
-  if [[ -L "$dest" && "$(readlink -f "$dest")" == "$(readlink -f "$src")" ]]; then
+  # Compare fully-resolved paths, not just "is dest itself a symlink" — if a
+  # *parent* directory of dest is a stray symlink into the repo (e.g. a
+  # leftover from an older version of this script that symlinked whole
+  # directories), dest can resolve to the exact same file as src while
+  # `-L "$dest"` is false, since that only checks the leaf. Skipping this
+  # check in that case backs up the real repo file (reached through the
+  # parent symlink) and then does `ln -sfn src dest` where src and dest are
+  # the same path — a self-referential symlink ("too many levels of
+  # symbolic links" on every subsequent read). Comparing resolved paths
+  # catches that up front instead, and self-heals an existing loop too:
+  # readlink -f on a real loop fails (empty output), so it just falls
+  # through to backup+relink like any other conflicting file — mv is safe
+  # on a broken/looping symlink since it renames the link itself rather
+  # than following it.
+  local dest_resolved src_resolved
+  dest_resolved="$(readlink -f "$dest" 2>/dev/null || true)"
+  src_resolved="$(readlink -f "$src")"
+  if [[ -n "$dest_resolved" && "$dest_resolved" == "$src_resolved" ]]; then
     echo "= already linked: $2"
     return
   fi
