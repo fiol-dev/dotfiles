@@ -25,12 +25,11 @@ echo "First run: Android Studio > More Actions > SDK Manager to grab platform-to
 
 cat <<'EOF'
 
-Note: this machine's existing Android Studio install actually came from
-JetBrains Toolbox (~/.local/share/JetBrains/Toolbox/apps/android-studio),
-not this AUR package. Both work fine; this script just gives you a
-package-manager-only path for a fresh machine.
+This machine's existing Android Studio install came from JetBrains
+Toolbox (~/.local/share/JetBrains/Toolbox/apps/android-studio), not this
+AUR package.
 
-After first launch (Android Studio only creates its config dir then), pull
-in the tracked keymaps/colors/codestyles/templates/fileTemplates with:
+After first launch, pull in the tracked
+keymaps/colors/codestyles/templates/fileTemplates with:
   apps/android-studio/sync-config.sh apply
 EOF

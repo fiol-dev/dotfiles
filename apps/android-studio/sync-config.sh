@@ -3,12 +3,9 @@
 # (keymaps, colors, codestyles, templates, fileTemplates) between the live
 # config dir and this repo.
 #
-# Android Studio's config dir is version-suffixed
-# (~/.config/Google/AndroidStudio<ver>/) and gets superseded on every IDE
-# update, so it can't be one of the fixed paths in lib/targets.sh — this
-# script finds the current version dir itself. `export` after you
-# customize something, `apply` after a fresh install or once a new
-# version dir shows up.
+# Finds the current ~/.config/Google/AndroidStudio<ver>/ dir (the exact
+# name changes with each IDE update). `export` after customizing
+# something, `apply` after a fresh install or a new version dir.
 #
 # NOT included: options/ (jdk.table.xml has local SDK paths,
 # recentProjects.xml/trusted-paths.xml leak local project paths,

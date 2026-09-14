@@ -13,14 +13,11 @@ sudo pacman -S --needed sddm
 
 TARGET_PKG=caelestia-sddm-minimalistv2-git
 
-# minimalist/minimalistV2/locklike all install to the same path
-# (/usr/share/sddm/themes/caelestia) and conflict with each other, but
-# none of them is literally a package named "caelestia-sddm" — that's
-# just the virtual name each one `provides`. Ask pacman which real
-# package currently provides it (if any), and only remove it if that's
-# not already the target — `pacman -R` can't resolve a virtual name on
-# its own, and `-Qq caelestia-sddm` would otherwise resolve straight to
-# TARGET_PKG on an idempotent re-run.
+# minimalist/minimalistV2/locklike install to the same path
+# (/usr/share/sddm/themes/caelestia) and conflict with each other.
+# "caelestia-sddm" is the virtual name each one `provides`, not a real
+# package. Ask pacman which real package currently provides it, and
+# remove it only if that's a different package than the target.
 current_provider="$(pacman -Qq caelestia-sddm 2>/dev/null || true)"
 if [[ -n "$current_provider" && "$current_provider" != "$TARGET_PKG" ]]; then
   echo "Removing conflicting theme variant: $current_provider"

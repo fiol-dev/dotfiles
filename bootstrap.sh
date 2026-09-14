@@ -13,8 +13,6 @@ source "$DOTFILES_DIR/lib/ui.sh"
 
 apps=(homebrew claude-code vscodium google-chrome android-studio amneziavpn pycharm lazygit docker lazydocker sddm)
 
-# rsync is a hard dependency of the sshput/sshget/sshsync fish functions —
-# ensure it's present regardless of which app below gets picked.
 if ! command -v rsync &>/dev/null; then
   ui_warn "Installing rsync (required by the sshput/sshget/sshsync fish functions)..."
   sudo pacman -S --needed rsync

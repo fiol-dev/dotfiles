@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-# lazygit-git (AUR) — tracks upstream's latest commit instead of the
-# stable extra/lazygit release. The two packages conflict, so remove the
-# stable one first if it's installed.
+# lazygit-git (AUR) tracks upstream's latest commit; it conflicts with
+# the stable extra/lazygit package, removed below if present.
 set -euo pipefail
 
 if pacman -Qq lazygit &>/dev/null; then

@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# Encrypted local backup of AmneziaVPN's config (server keys/passwords live
-# in there — this deliberately never goes into git, even encrypted).
+# Encrypted local backup of AmneziaVPN's config. Not committed to git.
 set -euo pipefail
 
 SRC="$HOME/.config/AmneziaVPN.ORG"

@@ -1,7 +1,7 @@
 # Shared list of tracked config, grouped for export.sh/import.sh.
-# Format per group: "repo/relative/path:$HOME/relative/path" entries.
-# Wallpapers aren't listed here — both scripts discover them dynamically
-# under home/Pictures/Wallpapers/ so Animated/ never has to be named twice.
+# Each group is "repo/relative/path:$HOME/relative/path" entries.
+# Wallpapers aren't listed here — export.sh/import.sh discover them
+# dynamically under home/Pictures/Wallpapers/.
 
 TARGET_GROUPS=(bash fish caelestia vscodium chrome_flags claude)
 declare -A GROUP_LABEL=(

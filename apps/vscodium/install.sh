@@ -7,9 +7,8 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 echo "Installing vscodium-bin + marketplace shim..."
 yay -S --needed vscodium-bin vscodium-bin-marketplace
 
-# vscodium-bin-marketplace patches product.json so the Extensions view
-# talks to marketplace.visualstudio.com instead of open-vsx.org, which is
-# what lets extensions like the caelestia theme integration resolve.
+# vscodium-bin-marketplace points the Extensions view at
+# marketplace.visualstudio.com instead of open-vsx.org.
 
 if command -v codium &>/dev/null; then
   echo

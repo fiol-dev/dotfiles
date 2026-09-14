@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
-# Copies tracked config FROM this repo INTO $HOME. No symlinks — every
-# import is a real copy, so the live files always work even if the repo
-# moves, gets deleted, or the machine loses network.
+# Copies tracked config from this repo into $HOME as real files.
 #
-# Every group gets backed up in full before it's touched, and you're
-# asked to confirm before anything changes (pass -y/--yes to skip both
-# the confirmation and just go, e.g. from bootstrap.sh or a fresh-machine
-# unattended run — the backup still happens either way).
+# For each group: back it up, ask for confirmation, then copy.
+# -y/--yes skips the confirmation; the backup still runs.
 set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -26,12 +22,7 @@ confirm() {
   [[ -z "$reply" || "$reply" =~ ^[Yy]$ ]]
 }
 
-# Back up every $HOME path a group touches, whether or not it's about to
-# change — unconditional, up front, before anything in the group is
-# copied. This is what makes it safe to import into a machine whose
-# config is in some unknown/mangled state: there's always a full,
-# untouched snapshot of what was there, including files this repo
-# doesn't track (e.g. caelestia/monitors/ living next to caelestia/cli.json).
+# Backs up every $HOME path a group touches, before any of it is copied.
 backup_group() {
   local group="$1"
   local entries_var="GROUP_${group}[@]"
@@ -41,14 +32,10 @@ backup_group() {
     local home_rel="${entry#*:}"
     local parent
     parent="$(dirname "$home_rel")"
-    # Only back up a parent directory in full when it's dedicated to one
-    # app (2+ path segments under $HOME, e.g. .config/caelestia) — that's
-    # what safely catches untracked siblings like caelestia/monitors/. A
-    # shallower parent ("." for a bare top-level file like .bashrc, or
-    # ".config" for a file living directly under it, like
-    # codium-flags.conf) is shared by every other app on the machine, so
-    # "back up the parent" there would mean copying all of $HOME or all
-    # of ~/.config. Back up the specific file instead.
+    # Parent directories with 2+ path segments under $HOME (e.g.
+    # .config/caelestia) are backed up in full. Shallower parents ("."
+    # for .bashrc, ".config" for codium-flags.conf) are backed up as the
+    # single file instead.
     if [[ "$parent" != */* ]]; then
       standalone["$home_rel"]=1
     else
@@ -79,10 +66,8 @@ import_one() {
     return
   fi
 
-  # -L check matters even when content matches: a leftover symlink from
-  # the old symlink-based install.sh would otherwise be left in place
-  # forever (same content, so diff sees no difference) instead of being
-  # converted to a real, independent copy — which is the whole point.
+  # A symlink is always replaced with a real copy, even if its content
+  # already matches.
   if [[ -e "$dest" && ! -L "$dest" ]] && diff -rq "$src" "$dest" &>/dev/null; then
     ui_ok "up to date: $home_rel"
     return

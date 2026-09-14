@@ -33,6 +33,6 @@ cat <<'EOF'
 
 One manual, one-time step (Chrome doesn't expose this as a flag or file):
   chrome://settings/appearance -> Themes -> "Use system theme"
-This is what lets --gtk-version=4 above actually paint Chrome with your
+Combined with --gtk-version=4 above, this paints Chrome with the
 caelestia GTK colors instead of Chrome's own Material theme.
 EOF
