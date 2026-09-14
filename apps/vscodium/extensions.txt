@@ -1,0 +1,13 @@
+# Snapshot: codium --list-extensions
+# Regenerate with: codium --list-extensions > apps/vscodium/extensions.txt
+isudox.vscode-jetbrains-keybindings
+mads-hartmann.bash-ide-vscode
+ms-python.debugpy
+ms-python.python
+ms-python.vscode-pylance
+ms-python.vscode-python-envs
+nettrash.md-vscode
+soramanew.caelestia-vscode-integration
+sumneko.lua
+the0807.uv-toolkit
+zainchen.json

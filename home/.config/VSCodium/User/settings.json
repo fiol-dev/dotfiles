@@ -1,0 +1,72 @@
+{
+    "editor.renderWhitespace": "trailing",
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.fontLigatures": true,
+    "prettier.tabWidth": 4,
+    "editor.minimap.autohide": "mouseover",
+    "security.workspace.trust.startupPrompt": "always",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "prettier.printWidth": 120,
+    "prettier.arrowParens": "avoid",
+    "workbench.colorTheme": "Caelestia",
+    "diffEditor.hideUnchangedRegions.enabled": true,
+    "workbench.list.smoothScrolling": true,
+    "editor.smoothScrolling": true,
+    "terminal.integrated.smoothScrolling": true,
+    "javascript.preferences.importModuleSpecifierEnding": "minimal",
+    "typescript.preferences.importModuleSpecifierEnding": "minimal",
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
+    "codeium.enableCodeLens": false,
+    "typescript.preferences.preferTypeOnlyAutoImports": true,
+    "editor.suggestSelection": "recentlyUsedByPrefix",
+    "workbench.iconTheme": "catppuccin-mocha",
+    "git.enableSmartCommit": true,
+    "codeium.enableConfig": {
+        "*": true,
+        "fish": true,
+        "qml": true
+    },
+    "[c]": {
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+    },
+    "[cpp]": {
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+    },
+    "doxdocgen.generic.boolReturnsTrueFalse": false,
+    "terminal.integrated.enableMultiLinePasteWarning": "never",
+    "qt-qml.qmlls.additionalImportPaths": [
+        "/usr/lib/qt6/qml"
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff"
+    },
+    "ruff.lineLength": 120,
+    "python.languageServer": "Pylance",
+    "editor.inlayHints.enabled": "off",
+    "qt-qml.qmlls.customExePath": "/usr/bin/qmlls6",
+    "qt-qml.doNotAskForQmllsDownload": true,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[lua]": {
+        "editor.defaultFormatter": "sumneko.lua"
+    },
+    "editor.fontSize": 21,
+    "editor.fontFamily": "'JetBrainsMono', monospace",
+    "editor.formatOnPaste": true,
+    "python.pythonPath": "/usr/bin/python",
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.completeFunctionParens": true,
+    "python.analysis.diagnosticMode": "workspace",
+    "python.analysis.enableTroubleshootMissingImports": true,
+    "python.analysis.generateWithTypeAnnotation": true,
+    "python.analysis.diagnosticSeverityOverrides": {},
+    "python-envs.workspaceSearchPaths": [
+        "./**/.venv",
+    ]
+}

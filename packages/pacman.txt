@@ -1,0 +1,9 @@
+# Official-repo packages this setup relies on.
+# Install with: sudo pacman -S --needed - < packages/pacman.txt
+fish
+rsync
+openssh
+sshfs
+fzf
+git
+gnupg

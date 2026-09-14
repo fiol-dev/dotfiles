@@ -1,0 +1,12 @@
+# Never track live secrets, even by accident.
+**/AmneziaVPN.conf
+**/AmneziaVPN.ORG/
+*.pem
+*.key
+id_*
+!id_*.pub
+
+# Editor/OS noise
+.DS_Store
+*.swp
+.omc/

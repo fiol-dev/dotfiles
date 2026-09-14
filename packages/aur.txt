@@ -1,0 +1,9 @@
+# AUR packages this setup relies on (installed via yay).
+# Install with: yay -S --needed - < packages/aur.txt
+# See apps/<name>/install.sh for the notes/caveats behind each one.
+vscodium-bin
+vscodium-bin-marketplace
+google-chrome
+android-studio
+amneziavpn-bin
+caelestia-cli

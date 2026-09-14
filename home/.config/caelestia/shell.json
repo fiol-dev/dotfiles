@@ -1,0 +1,139 @@
+{
+    "appearance": {
+        "transparency": {
+            "enabled": true
+        }
+    },
+    "bar": {
+        "statusIcons": [
+            {
+                "enabled": true,
+                "id": "audio"
+            },
+            {
+                "enabled": true,
+                "id": "microphone"
+            },
+            {
+                "enabled": true,
+                "id": "kbLayout"
+            },
+            {
+                "enabled": true,
+                "id": "network"
+            },
+            {
+                "enabled": true,
+                "id": "bluetooth"
+            },
+            {
+                "enabled": true,
+                "id": "battery"
+            }
+        ],
+        "tray": {
+            "background": false,
+            "compact": false,
+            "recolour": false
+        }
+    },
+    "general": {
+        "idle": {
+            "inhibitWhenAudio": true,
+            "inhibitWhenCharging": false,
+            "lockBeforeSleep": true,
+            "timeouts": [
+                {
+                    "idleAction": "lock",
+                    "inhibitWhenAudio": false,
+                    "inhibitWhenCharging": false,
+                    "respectInhibitors": true,
+                    "timeout": 180
+                },
+                {
+                    "idleAction": "dpms off",
+                    "returnAction": "dpms on",
+                    "timeout": 300
+                }
+            ]
+        }
+    },
+    "launcher": {
+        "hiddenApps": [
+            "bssh",
+            "bvnc",
+            "avahi-discover",
+            "btop",
+            "thunar-bulk-rename",
+            "foot",
+            "footclient",
+            "foot-server",
+            "qv4l2",
+            "qvidcap",
+            "thunar-settings",
+            "thunar",
+            "uuctl",
+            "org.pulseaudio.pavucontrol",
+            "xfce4-about",
+            "lstopo",
+            "appimagelaunchersettings",
+            "cmake-gui",
+            "gvim",
+            "protontricks",
+            "vim",
+            "winetricks"
+        ]
+    },
+    "services": {
+        "useFahrenheit": false,
+        "useTwelveHourClock": false,
+        "weatherLocation": "Yelabuga"
+    },
+    "utilities": {
+        "cards": {
+            "keepAwake": false
+        },
+        "quickToggles": [
+            {
+                "enabled": true,
+                "id": "wifi"
+            },
+            {
+                "enabled": true,
+                "id": "bluetooth"
+            },
+            {
+                "enabled": true,
+                "id": "mic"
+            },
+            {
+                "enabled": true,
+                "id": "settings"
+            },
+            {
+                "enabled": false,
+                "id": "gameMode"
+            },
+            {
+                "enabled": true,
+                "id": "dnd"
+            },
+            {
+                "enabled": true,
+                "id": "vpn"
+            }
+        ],
+        "vpn": {
+            "enabled": true,
+            "provider": [
+                {
+                    "displayName": "AmneziaVPN",
+                    "id": "vpn-mu0zqqnb-7bv9p",
+                    "interface": "amn0",
+                    "name": "AmneziaVPN"
+                }
+            ],
+            "selectedProvider": "vpn-mu0zqqnb-7bv9p"
+        }
+    }
+}
