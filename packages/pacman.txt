@@ -1,5 +1,5 @@
 # Official-repo packages this setup relies on.
-# Install with: sudo pacman -S --needed - < packages/pacman.txt
+# Install with: grep -vE '^\s*(#|$)' packages/pacman.txt | xargs -r sudo pacman -S --needed
 fish
 rsync
 openssh
@@ -7,3 +7,12 @@ sshfs
 fzf
 git
 gnupg
+
+# Docker (see apps/docker/install.sh for group/service setup)
+docker
+docker-compose
+docker-buildx
+lazydocker
+
+# JetBrains PyCharm Community (see apps/pycharm/install.sh)
+pycharm-community-edition

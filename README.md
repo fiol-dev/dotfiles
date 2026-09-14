@@ -16,11 +16,17 @@ apps/<name>/install.sh    per-app install/setup script
 ## First-time setup on a new machine
 
 ```fish
-sudo pacman -S --needed - < ~/dotfiles/packages/pacman.txt
-yay -S --needed - < ~/dotfiles/packages/aur.txt
+grep -vE '^\s*(#|$)' ~/dotfiles/packages/pacman.txt | xargs -r sudo pacman -S --needed
+grep -vE '^\s*(#|$)' ~/dotfiles/packages/aur.txt | xargs -r yay -S --needed
 bash ~/dotfiles/install.sh
 exec fish
 ```
+
+(`pacman -S --needed - < file` looks tempting but doesn't work reliably here —
+pacman's stdin-as-targets mode treats every line literally, comments
+included, and depending on your shell/sudo setup can fail outright with
+`argument '-' specified without input on stdin`. `xargs` sidesteps all of
+that.)
 
 Then run `bash ~/dotfiles/bootstrap.sh` for the apps that need more than a
 package install (extension restore, flags files, etc), or run each
@@ -54,16 +60,38 @@ package install (extension restore, flags files, etc), or run each
   Use JetBrains' built-in **Settings Sync** for keymap/plugins/editor
   prefs; `apps/pycharm/backup-config.sh` gives a local fallback for the
   genuinely safe subset (keymaps/colors/codestyles).
+- **Claude Code** — only `~/.claude/settings.json` (permissions mode,
+  enabled plugins/marketplaces, statusline command) and
+  `statusline-command.sh` are tracked. Everything else under `~/.claude/`
+  (`.credentials.json`, `history.jsonl`, `sessions/`, `projects/`,
+  `session-env/`, ...) is runtime state or secrets and is git-ignored.
 
 ## Apps
 
 | App | Source | Script |
 |---|---|---|
+| Homebrew | official installer script | `apps/homebrew/install.sh` |
+| Claude Code | Homebrew cask `claude-code` | `apps/claude-code/install.sh` |
 | VSCodium | AUR `vscodium-bin` + `vscodium-bin-marketplace` | `apps/vscodium/install.sh` |
 | Google Chrome | AUR `google-chrome` | `apps/google-chrome/install.sh` (+ `theme.sh`) |
 | Android Studio | AUR `android-studio` | `apps/android-studio/install.sh` |
 | AmneziaVPN | AUR `amneziavpn-bin` | `apps/amneziavpn/install.sh` |
-| PyCharm | JetBrains Toolbox (already installed here) | `apps/pycharm/install.sh` |
+| PyCharm | official repo `pycharm-community-edition` (Toolbox also works, already used here) | `apps/pycharm/install.sh` |
+| lazygit | AUR `lazygit-git` (replaces stable `lazygit`) | `apps/lazygit/install.sh` |
+| Docker | official repo: `docker`, `docker-compose`, `docker-buildx` | `apps/docker/install.sh` |
+| lazydocker | official repo `lazydocker` | `apps/lazydocker/install.sh` |
+
+Claude Code was already installed here via a native/npm install at
+`/usr/bin/claude`; `apps/claude-code/install.sh` adds the Homebrew cask
+alongside it — once brew's shellenv is sourced its Cellar wins on `PATH`,
+shadowing (not removing) the older install.
+
+Docker: `apps/docker/install.sh` installs the engine, enables
+`docker.service`, and adds your user to the `docker` group automatically —
+that group change needs a new login session (or `newgrp docker`) to take
+effect. `docker-compose` provides both the standalone `docker-compose`
+binary and the `docker compose` plugin; `docker-buildx` gives BuildKit
+(the default builder on Docker 23+) via `docker buildx build`.
 
 ## SSH file-transfer fish functions
 
@@ -79,9 +107,8 @@ All in `home/.config/fish/functions/`:
 - `sshpick HOST [START_DIR]` — fzf-browse files on a remote host and
   download the one you pick.
 
-These are separate from the existing `transfer-dotfiles` (rsyncs *this*
-dotfiles set to another machine) and `backup-fish-config` functions, which
-are unchanged.
+`backup-fish-config` (local fish-config snapshot) is the other pre-existing
+helper in this directory, unchanged.
 
 ## Notes
 

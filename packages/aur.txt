@@ -1,5 +1,5 @@
 # AUR packages this setup relies on (installed via yay).
-# Install with: yay -S --needed - < packages/aur.txt
+# Install with: grep -vE '^\s*(#|$)' packages/aur.txt | xargs -r yay -S --needed
 # See apps/<name>/install.sh for the notes/caveats behind each one.
 vscodium-bin
 vscodium-bin-marketplace
@@ -7,3 +7,8 @@ google-chrome
 android-studio
 amneziavpn-bin
 caelestia-cli
+
+# lazygit-git tracks upstream's latest commit instead of the stable
+# extra/lazygit release; apps/lazygit/install.sh removes the stable
+# package first since the two conflict.
+lazygit-git

@@ -6,6 +6,14 @@
 id_*
 !id_*.pub
 
+# ~/.claude/ is mostly runtime/session state and credentials — only
+# settings.json and statusline-command.sh are meant to be tracked here.
+home/.claude/.credentials.json
+home/.claude/history.jsonl
+home/.claude/sessions/
+home/.claude/projects/
+home/.claude/session-env/
+
 # Editor/OS noise
 .DS_Store
 *.swp

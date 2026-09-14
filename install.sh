@@ -18,6 +18,8 @@ LINKS=(
   "home/.config/VSCodium/User:.config/VSCodium/User"
   "home/.config/codium-flags.conf:.config/codium-flags.conf"
   "home/.config/google-chrome-flags.conf:.config/google-chrome-flags.conf"
+  "home/.claude/settings.json:.claude/settings.json"
+  "home/.claude/statusline-command.sh:.claude/statusline-command.sh"
 )
 
 link_one() {

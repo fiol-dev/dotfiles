@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
-# PyCharm on this machine is managed by JetBrains Toolbox (/opt/JetBrains/ToolBox),
-# not a standalone AUR package — this script just makes sure Toolbox is present
-# and points you at it, it doesn't reinstall the IDE.
+# PyCharm Community — now in Arch's official [extra] repo (not AUR).
+# pycharm-professional is still AUR-only and needs a JetBrains license; if
+# you want that one instead, swap the pacman line below for:
+#   yay -S --needed pycharm-professional
 set -euo pipefail
 
-if [[ -x /opt/JetBrains/ToolBox/jetbrains-toolbox ]] || command -v jetbrains-toolbox &>/dev/null; then
-  echo "✓ JetBrains Toolbox already installed."
-else
-  echo "Installing JetBrains Toolbox from AUR..."
-  yay -S --needed jetbrains-toolbox
-fi
+echo "Installing pycharm-community-edition..."
+sudo pacman -S --needed pycharm-community-edition
 
 cat <<'EOF'
 
-Install/update PyCharm itself from inside Toolbox (GUI), not via pacman/AUR —
-that's how the existing PyCharm2026.2 install here was set up.
+Note: this machine's existing PyCharm2026.2 install came from JetBrains
+Toolbox (/opt/JetBrains/ToolBox), a separate install method from the one
+above. Both can coexist; Toolbox is still fine to keep using if you prefer
+its auto-update/multi-IDE management — this script just gives you a
+package-manager-only path for a fresh machine.
 
 Why this repo doesn't symlink ~/.config/JetBrains/PyCharm*/ :
 Its config directory mixes real preferences (keymap, code style) with
