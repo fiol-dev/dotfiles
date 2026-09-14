@@ -57,6 +57,18 @@ for entry in "${LINKS[@]}"; do
   link_one "${entry%%:*}" "${entry#*:}"
 done
 
+# Wallpapers: individual files, not the whole directory — this repo tracks
+# the static PNG/JPG set but not ~/Pictures/Wallpapers/Animated/ (untracked,
+# ~380MB of third-party video wallpapers), so a directory-level symlink
+# would either drag Animated/ into the repo or wipe it out on backup, same
+# problem caelestia/monitors/ had.
+if [[ -d "$DOTFILES_DIR/home/Pictures/Wallpapers" ]]; then
+  while IFS= read -r -d '' f; do
+    name="$(basename "$f")"
+    link_one "home/Pictures/Wallpapers/$name" "Pictures/Wallpapers/$name"
+  done < <(find "$DOTFILES_DIR/home/Pictures/Wallpapers" -maxdepth 1 -type f -print0)
+fi
+
 echo
 if [[ -d "$BACKUP_DIR" ]]; then
   echo "Pre-existing files were moved to: $BACKUP_DIR"

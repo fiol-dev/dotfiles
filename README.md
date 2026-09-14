@@ -85,6 +85,14 @@ package install (extension restore, flags files, etc), or run each
   `statusline-command.sh` are tracked. Everything else under `~/.claude/`
   (`.credentials.json`, `history.jsonl`, `sessions/`, `projects/`,
   `session-env/`, ...) is runtime state or secrets and is git-ignored.
+- **Wallpapers** — the 41 static files directly under
+  `~/Pictures/Wallpapers/` (~235MB), linked individually like caelestia's
+  config, for the same reason: `~/Pictures/Wallpapers/Animated/` (~380MB
+  of third-party anime/video wallpapers) is deliberately **not** tracked —
+  a directory-level symlink would either drag it into the repo or back it
+  up/replace it on install. Note this repo is public: the wallhaven.cc
+  images in here are third-party downloads, not original work, committed
+  at the repo owner's explicit choice.
 
 ## Apps
 
