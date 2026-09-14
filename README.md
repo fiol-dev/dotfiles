@@ -65,11 +65,21 @@ package install (extension restore, flags files, etc), or run each
   holds live WireGuard/AmneziaWG private keys and server root passwords.
   Use `apps/amneziavpn/backup-config.sh` for a local, gpg-encrypted backup
   instead (never committed).
-- **PyCharm** — *not* tracked either. Its config dir mixes real prefs with
-  machine state (SDK paths, DB connection strings, recent project paths).
-  Use JetBrains' built-in **Settings Sync** for keymap/plugins/editor
-  prefs; `apps/pycharm/backup-config.sh` gives a local fallback for the
-  genuinely safe subset (keymaps/colors/codestyles).
+- **PyCharm / Android Studio** — the safe subset of each (`keymaps/`,
+  `colors/`, `codestyles/`, `templates/`, `fileTemplates/`) is tracked as
+  a snapshot under `apps/pycharm/config/` and `apps/android-studio/config/`,
+  synced explicitly with `apps/<name>/sync-config.sh {export|apply}`
+  rather than symlinked — their live config dirs are version-suffixed
+  (`PyCharm2026.2`, `AndroidStudio2026.1.4`, ...) and get superseded on
+  every IDE update, so a symlink would go stale. `export` after you
+  customize something (keymap tweak, new file template, color scheme),
+  `apply` on a new machine or once a new version dir appears.
+  Deliberately **not** tracked: `options/` (mixes real prefs with local
+  SDK paths in `jdk.table.xml`, DB connection strings, GitHub/GitLab auth
+  state, recent-project paths), `pycharm.key` (license), `workspace/`,
+  `ssl/`, `tasks/`. Use JetBrains' built-in **Settings Sync** for
+  plugins/UI state on top of this. `apps/pycharm/backup-config.sh` remains
+  as a local, non-git, timestamped fallback.
 - **Claude Code** — only `~/.claude/settings.json` (permissions mode,
   enabled plugins/marketplaces, statusline command) and
   `statusline-command.sh` are tracked. Everything else under `~/.claude/`
@@ -84,9 +94,9 @@ package install (extension restore, flags files, etc), or run each
 | Claude Code | Homebrew cask `claude-code` | `apps/claude-code/install.sh` |
 | VSCodium | AUR `vscodium-bin` + `vscodium-bin-marketplace` | `apps/vscodium/install.sh` |
 | Google Chrome | AUR `google-chrome` | `apps/google-chrome/install.sh` (+ `theme.sh`) |
-| Android Studio | AUR `android-studio` | `apps/android-studio/install.sh` |
+| Android Studio | AUR `android-studio` (Toolbox also works, already used here) | `apps/android-studio/install.sh` (+ `sync-config.sh`) |
 | AmneziaVPN | AUR `amneziavpn-bin` | `apps/amneziavpn/install.sh` |
-| PyCharm | official repo `pycharm-community-edition` (Toolbox also works, already used here) | `apps/pycharm/install.sh` |
+| PyCharm | official repo `pycharm-community-edition` (Toolbox also works, already used here) | `apps/pycharm/install.sh` (+ `sync-config.sh`) |
 | lazygit | AUR `lazygit-git` (replaces stable `lazygit`) | `apps/lazygit/install.sh` |
 | Docker | official repo: `docker`, `docker-compose`, `docker-buildx` | `apps/docker/install.sh` |
 | lazydocker | official repo `lazydocker` | `apps/lazydocker/install.sh` |

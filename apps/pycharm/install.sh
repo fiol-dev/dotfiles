@@ -16,18 +16,22 @@ above. Both can coexist; Toolbox is still fine to keep using if you prefer
 its auto-update/multi-IDE management — this script just gives you a
 package-manager-only path for a fresh machine.
 
-Why this repo doesn't symlink ~/.config/JetBrains/PyCharm*/ :
-Its config directory mixes real preferences (keymap, code style) with
-machine state you don't want in git — jdk.table.xml (local SDK paths),
-databaseDrivers.xml / gitlab.xml (can hold connection strings/tokens),
-recentProjects.xml (local project paths).
+Why this repo doesn't symlink ~/.config/JetBrains/PyCharm*/ directly:
+it mixes real preferences (keymap, code style) with machine state you
+don't want in git — jdk.table.xml (local SDK paths), databaseDrivers.xml
+/ gitlab.xml (can hold connection strings/tokens), recentProjects.xml
+(local project paths) — and the directory is version-suffixed anyway, so
+a symlink would go stale on every IDE update.
 
-Use JetBrains' built-in Settings Sync instead — it's the supported way to
-carry keymap/plugins/editor prefs across installs and even across IDEs
-(PyCharm <-> IntelliJ):
+Instead, the safe subset (keymaps/colors/codestyles/templates/fileTemplates)
+is tracked as a snapshot and synced explicitly:
+  apps/pycharm/sync-config.sh apply    # after first launch on a new machine
+  apps/pycharm/sync-config.sh export   # after you customize something
+
+JetBrains' built-in Settings Sync is still worth turning on too, for
+plugins/UI state this repo doesn't track:
   Settings/Preferences -> Settings Sync -> Enable, sign in with a JetBrains Account.
 
-See apps/pycharm/backup-config.sh for a local (non-git) snapshot of the
-safe subset (keymaps/, colors/, codestyles/) if you want a portable
-fallback that doesn't need a JetBrains Account.
+apps/pycharm/backup-config.sh remains as a local (non-git, timestamped)
+fallback snapshot if you ever want one outside of git.
 EOF

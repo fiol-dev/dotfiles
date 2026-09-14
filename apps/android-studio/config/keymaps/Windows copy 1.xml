@@ -1,0 +1,12 @@
+<keymap version="1" name="Windows copy 1" parent="$default">
+  <action id="UpdateRunningApplication" />
+  <action id="android.deploy.ApplyChanges">
+    <keyboard-shortcut first-keystroke="ctrl f10" />
+  </action>
+  <action id="android.deploy.CodeSwap">
+    <keyboard-shortcut first-keystroke="ctrl alt f10" />
+  </action>
+  <action id="osmedile.intellij.stringmanip.RepeatAction">
+    <keyboard-shortcut first-keystroke="shift ctrl alt r" />
+  </action>
+</keymap>

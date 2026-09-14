@@ -1,0 +1,8 @@
+<templateSet group="AndroidKotlin">
+  <template name="msfv" value="private val _$VAL$ = MutableStateFlow()&#10;val $VAL$ = _$VAL$.asStateFlow()" shortcut="ENTER" description="" toReformat="false" toShortenFQNames="true">
+    <variable name="VAL" expression="" defaultValue="state" alwaysStopAt="true" />
+    <context>
+      <option name="ANDROID" value="true" />
+    </context>
+  </template>
+</templateSet>

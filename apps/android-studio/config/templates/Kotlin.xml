@@ -1,0 +1,6 @@
+<templateSet group="Kotlin">
+  <template name="pval" value="private val _$VAR$ = kotlinx.coroutines.flow.MutableStateFlow&lt;$TYPE$&gt;()&#10;val $VAR$: kotlinx.coroutines.flow.StateFlow&lt;$TYPE$&gt; get() = _$VAR$" description="Create a public/private pair of StateFlow" toReformat="false" toShortenFQNames="true">
+    <variable name="VAR" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="TYPE" expression="" defaultValue="" alwaysStopAt="true" />
+  </template>
+</templateSet>

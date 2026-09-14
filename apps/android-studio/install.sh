@@ -22,3 +22,15 @@ fi
 echo
 echo "Android Studio itself bundles its own JBR JDK, so no separate JDK install is needed."
 echo "First run: Android Studio > More Actions > SDK Manager to grab platform-tools/emulator."
+
+cat <<'EOF'
+
+Note: this machine's existing Android Studio install actually came from
+JetBrains Toolbox (~/.local/share/JetBrains/Toolbox/apps/android-studio),
+not this AUR package. Both work fine; this script just gives you a
+package-manager-only path for a fresh machine.
+
+After first launch (Android Studio only creates its config dir then), pull
+in the tracked keymaps/colors/codestyles/templates/fileTemplates with:
+  apps/android-studio/sync-config.sh apply
+EOF

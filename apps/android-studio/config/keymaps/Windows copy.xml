@@ -1,0 +1,16 @@
+<keymap version="1" name="Windows copy" parent="$default">
+  <action id="CopyReference" />
+  <action id="GotoClass">
+    <keyboard-shortcut first-keystroke="shift ctrl alt b" />
+  </action>
+  <action id="NewDir">
+    <keyboard-shortcut first-keystroke="ctrl n" />
+  </action>
+  <action id="UpdateRunningApplication" />
+  <action id="android.deploy.ApplyChanges">
+    <keyboard-shortcut first-keystroke="ctrl f10" />
+  </action>
+  <action id="android.deploy.CodeSwap">
+    <keyboard-shortcut first-keystroke="ctrl alt f10" />
+  </action>
+</keymap>

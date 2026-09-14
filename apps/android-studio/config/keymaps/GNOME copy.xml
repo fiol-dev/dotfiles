@@ -1,0 +1,45 @@
+<keymap version="1" name="GNOME copy" parent="Default for GNOME">
+  <action id="ChangesView.ToggleCommitUi" />
+  <action id="CheckinProject" />
+  <action id="ContextHelp" />
+  <action id="EditorSortLines">
+    <keyboard-shortcut first-keystroke="shift ctrl l" />
+  </action>
+  <action id="Git.Add" />
+  <action id="Git.Branches" />
+  <action id="Git.Commit.And.Push.Executor" />
+  <action id="Git.Commit.Stage" />
+  <action id="Git.CreateNewBranch" />
+  <action id="Git.Log.Branches.Navigate.Log.To.Selected.Branch" />
+  <action id="Git.New.Branch.In.Log" />
+  <action id="Git.Stage.Add" />
+  <action id="Git.Stage.Reset" />
+  <action id="Git.Stage.Revert" />
+  <action id="GotoClass">
+    <keyboard-shortcut first-keystroke="ctrl alt slash" />
+  </action>
+  <action id="Kotlin.NewFile">
+    <keyboard-shortcut first-keystroke="ctrl k" />
+  </action>
+  <action id="MoveLineDown">
+    <keyboard-shortcut first-keystroke="shift alt down" />
+  </action>
+  <action id="MoveLineUp">
+    <keyboard-shortcut first-keystroke="shift alt up" />
+  </action>
+  <action id="NewDir">
+    <keyboard-shortcut first-keystroke="ctrl alt n" />
+    <keyboard-shortcut first-keystroke="ctrl n" />
+  </action>
+  <action id="NewScratchFile" />
+  <action id="UpdateRunningApplication" />
+  <action id="ViewToolButtons">
+    <keyboard-shortcut first-keystroke="ctrl alt quote" />
+  </action>
+  <action id="android.deploy.ApplyChanges">
+    <keyboard-shortcut first-keystroke="ctrl f10" />
+  </action>
+  <action id="android.deploy.CodeSwap">
+    <keyboard-shortcut first-keystroke="ctrl alt f10" />
+  </action>
+</keymap>
