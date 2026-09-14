@@ -12,5 +12,5 @@ PS1='[\u@\h \W]\$ '
 source /usr/share/nvm/init-nvm.sh
 
 # >>> Codex installer >>>
-export PATH="/home/fiol-dev/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 # <<< Codex installer <<<
