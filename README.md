@@ -21,15 +21,15 @@ explicitly run `import.sh`.
 ## Layout
 
 ```
-export.sh                 $HOME -> repo (review with git diff, then commit + push)
-import.sh                 repo -> $HOME (backs up first, asks before each group)
-bootstrap.sh               interactive menu over apps/*/install.sh, multi-select
-lib/targets.sh              shared list of tracked paths, grouped
-lib/ui.sh                   shared output formatting
-packages/pacman.txt        official-repo deps
-packages/aur.txt           AUR deps (yay)
-home/                       tracked config, mirrors $HOME
-apps/<name>/install.sh     per-app install/setup script
+export.sh                $HOME -> repo (review with git diff, then commit + push)
+import.sh                repo -> $HOME (backs up first, asks before each group)
+bootstrap.sh              interactive menu over apps/*/install.sh, multi-select
+lib/targets.sh            shared list of tracked paths, grouped
+lib/ui.sh                 shared output formatting
+packages/pacman.txt       official-repo deps
+packages/aur.txt          AUR deps (yay)
+home/                     tracked config, mirrors $HOME
+apps/<name>/install.sh    per-app install/setup script
 ```
 
 ## First-time setup on a new machine
