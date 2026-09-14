@@ -11,17 +11,26 @@ REAL_USER="$(id -un)"
 echo "Installing sddm..."
 sudo pacman -S --needed sddm
 
-# minimalist/minimalistV2/locklike all install to the same path
-# (/usr/share/sddm/themes/caelestia) and conflict with each other.
-for other in caelestia-sddm caelestia-sddm-locklike-git caelestia-sddm-minimalist-git; do
-  if pacman -Qq "$other" &>/dev/null; then
-    echo "Removing conflicting theme variant: $other"
-    sudo pacman -R --noconfirm "$other"
-  fi
-done
+TARGET_PKG=caelestia-sddm-minimalistv2-git
 
-echo "Installing caelestia-sddm-minimalistv2-git from AUR..."
-yay -S --needed caelestia-sddm-minimalistv2-git
+# minimalist/minimalistV2/locklike all install to the same path
+# (/usr/share/sddm/themes/caelestia) and conflict with each other, but
+# none of them is literally a package named "caelestia-sddm" — that's
+# just the virtual name each one `provides`. So: ask pacman which real
+# package currently provides it (if any), and only remove it if that's
+# not already the one we're about to install — `pacman -Qq caelestia-sddm`
+# resolves through the provides and would otherwise match TARGET_PKG on
+# an idempotent re-run, and `pacman -R` can't resolve a virtual name on
+# its own (that's what broke here: it tried to -R "caelestia-sddm" itself
+# and pacman errored with "target not found").
+current_provider="$(pacman -Qq caelestia-sddm 2>/dev/null || true)"
+if [[ -n "$current_provider" && "$current_provider" != "$TARGET_PKG" ]]; then
+  echo "Removing conflicting theme variant: $current_provider"
+  sudo pacman -R --noconfirm "$current_provider"
+fi
+
+echo "Installing $TARGET_PKG from AUR..."
+yay -S --needed --noconfirm --answerclean None --answerdiff None --answeredit None "$TARGET_PKG"
 
 # The package's own post-install hook already:
 #  - writes /etc/sddm.conf.d/caelestia.conf -> [Theme] Current=caelestia
