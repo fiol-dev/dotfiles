@@ -9,6 +9,15 @@ function sshsync -d "Two-way-ish rsync between a local dir and a remote dir"
         return 1
     end
 
+    if not command -v rsync &>/dev/null
+        set_color red
+        echo "sshsync: needs rsync (not installed) — its incremental --update"
+        echo "semantics don't map safely onto scp, so there's no fallback here."
+        echo "Install it: sudo pacman -S rsync"
+        set_color normal
+        return 1
+    end
+
     set -l local_dir (string trim -r -c / -- $argv[1])/
     set -l remote_dir (string trim -r -c / -- $argv[2])/
     set -l opts -avzu --progress -e ssh

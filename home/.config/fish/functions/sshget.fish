@@ -1,4 +1,4 @@
-function sshget -d "Download a remote file/dir to here via rsync"
+function sshget -d "Download a remote file/dir to here via rsync (falls back to scp)"
     argparse 'd/delete' 'n/dry-run' -- $argv
     or return 1
 
@@ -28,12 +28,33 @@ function sshget -d "Download a remote file/dir to here via rsync"
         test (count $argv) -ge 3; and set local_path $argv[3]
     end
 
-    set -l opts -avz --progress -e ssh
-    set -q _flag_delete; and set -a opts --delete
-    set -q _flag_dry_run; and set -a opts --dry-run
-
     set_color yellow
     echo "→ $src  ⇒  $local_path"
     set_color normal
-    rsync $opts $src $local_path
+
+    if command -v rsync &>/dev/null
+        set -l opts -avz --progress -e ssh
+        set -q _flag_delete; and set -a opts --delete
+        set -q _flag_dry_run; and set -a opts --dry-run
+        rsync $opts $src $local_path
+        return
+    end
+
+    set_color yellow
+    echo "(rsync not found, falling back to scp — no --delete/--dry-run support, no resume)"
+    set_color normal
+
+    if set -q _flag_delete
+        set_color red
+        echo "sshget: --delete needs rsync (not installed) — refusing to fall back to scp for that"
+        set_color normal
+        return 1
+    end
+
+    if set -q _flag_dry_run
+        echo "(dry-run) would run: scp -pr $src $local_path"
+        return
+    end
+
+    scp -pr $src $local_path
 end

@@ -1,4 +1,4 @@
-function sshput -d "Upload a local file/dir to a remote host via rsync"
+function sshput -d "Upload a local file/dir to a remote host via rsync (falls back to scp)"
     argparse 'd/delete' 'n/dry-run' -- $argv
     or return 1
 
@@ -25,12 +25,33 @@ function sshput -d "Upload a local file/dir to a remote host via rsync"
         return 1
     end
 
-    set -l opts -avz --progress -e ssh
-    set -q _flag_delete; and set -a opts --delete
-    set -q _flag_dry_run; and set -a opts --dry-run
-
     set_color yellow
     echo "→ $local_path  ⇒  $dest"
     set_color normal
-    rsync $opts $local_path $dest
+
+    if command -v rsync &>/dev/null
+        set -l opts -avz --progress -e ssh
+        set -q _flag_delete; and set -a opts --delete
+        set -q _flag_dry_run; and set -a opts --dry-run
+        rsync $opts $local_path $dest
+        return
+    end
+
+    set_color yellow
+    echo "(rsync not found, falling back to scp — no --delete/--dry-run support, no resume)"
+    set_color normal
+
+    if set -q _flag_delete
+        set_color red
+        echo "sshput: --delete needs rsync (not installed) — refusing to fall back to scp for that"
+        set_color normal
+        return 1
+    end
+
+    if set -q _flag_dry_run
+        echo "(dry-run) would run: scp -pr $local_path $dest"
+        return
+    end
+
+    scp -pr $local_path $dest
 end

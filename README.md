@@ -137,7 +137,16 @@ All in `home/.config/fish/functions/`:
 - `sshmount HOST:REMOTE LOCAL_DIR` / `sshumount LOCAL_DIR` — mount/unmount
   a remote dir with sshfs.
 - `sshpick HOST [START_DIR]` — fzf-browse files on a remote host and
-  download the one you pick.
+  download the one you pick (uses `sshget` under the hood).
+
+`sshput`/`sshget` fall back to `scp -pr` automatically when `rsync` isn't
+installed — no progress/resume/incremental-update, and `-d`/`-n` are
+refused rather than silently ignored, since they only mean something with
+rsync. `sshsync` requires rsync outright (no scp fallback): its `-u`
+update-skip and pull-then-push semantics don't map onto scp safely.
+`bootstrap.sh` installs rsync automatically before offering the app menu,
+so this fallback is mainly for a bare machine that hasn't run it yet —
+which is exactly the state this machine was in when it got added.
 
 `backup-fish-config` (local fish-config snapshot) is the other pre-existing
 helper in this directory, unchanged.

@@ -5,6 +5,13 @@ set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# rsync is a hard dependency of the sshput/sshget/sshsync fish functions —
+# ensure it's present regardless of which app below gets picked.
+if ! command -v rsync &>/dev/null; then
+  echo "Installing rsync (required by the sshput/sshget/sshsync fish functions)..."
+  sudo pacman -S --needed rsync
+fi
+
 apps=(homebrew claude-code vscodium google-chrome android-studio amneziavpn pycharm lazygit docker lazydocker sddm)
 
 echo "Caelestia dotfiles bootstrap"
