@@ -41,17 +41,14 @@ backup_group() {
     local home_rel="${entry#*:}"
     local parent
     parent="$(dirname "$home_rel")"
-    # Only treat a parent directory as safe to back up *in full* when it's
-    # dedicated to one app (2+ path segments under $HOME, e.g.
-    # .config/caelestia or .config/fish) — that's genuinely where catching
-    # untracked siblings like caelestia/monitors/ matters. A parent of "."
-    # (bare top-level file, e.g. .bashrc) or ".config" (a file living
-    # directly under .config/, e.g. codium-flags.conf) is a shared
-    # namespace every other app on the machine also lives in — backing
-    # that up "in full" means copying $HOME or the ENTIRE ~/.config tree,
-    # every unrelated app included. This is exactly the bug that swept in
-    # 9.9G of JetBrains + 1.2G of Chrome's actual profile + other unrelated
-    # app config on a real run — back up just the specific file instead.
+    # Only back up a parent directory in full when it's dedicated to one
+    # app (2+ path segments under $HOME, e.g. .config/caelestia) — that's
+    # what safely catches untracked siblings like caelestia/monitors/. A
+    # shallower parent ("." for a bare top-level file like .bashrc, or
+    # ".config" for a file living directly under it, like
+    # codium-flags.conf) is shared by every other app on the machine, so
+    # "back up the parent" there would mean copying all of $HOME or all
+    # of ~/.config. Back up the specific file instead.
     if [[ "$parent" != */* ]]; then
       standalone["$home_rel"]=1
     else

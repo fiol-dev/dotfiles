@@ -31,7 +31,7 @@ Homebrew casks don't auto-update in the background — refresh with:
 (there's also a `claude-code@latest` cask if you want the bleeding edge
 instead of the ~1-week-behind stable channel)
 
-~/.claude/settings.json and ~/.claude/statusline-command.sh are tracked by
-dotfiles/install.sh (symlinked). Everything else under ~/.claude/ (auth
+~/.claude/settings.json and ~/.claude/statusline-command.sh are tracked —
+bring them in with import.sh. Everything else under ~/.claude/ (auth
 credentials, session history, project state) is intentionally NOT tracked.
 EOF

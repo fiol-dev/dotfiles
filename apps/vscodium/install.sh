@@ -23,4 +23,4 @@ else
 fi
 
 echo
-echo "settings.json / keybindings.json are managed by dotfiles/install.sh (symlinked)."
+echo "settings.json / keybindings.json are tracked — bring them in with import.sh."

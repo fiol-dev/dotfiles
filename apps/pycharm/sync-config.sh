@@ -4,9 +4,10 @@
 # config dir and this repo.
 #
 # PyCharm's config dir is version-suffixed (~/.config/JetBrains/PyCharm<ver>/)
-# and gets superseded on every IDE update, so this can't be a plain symlink
-# like the rest of this repo — `export` after you customize something,
-# `apply` after a fresh install or once a new version dir shows up.
+# and gets superseded on every IDE update, so it can't be one of the fixed
+# paths in lib/targets.sh — this script finds the current version dir
+# itself. `export` after you customize something, `apply` after a fresh
+# install or once a new version dir shows up.
 #
 # NOT included: options/ (jdk.table.xml has local SDK paths,
 # recentProjects.xml/trusted-paths.xml leak local project paths,

@@ -16,13 +16,11 @@ TARGET_PKG=caelestia-sddm-minimalistv2-git
 # minimalist/minimalistV2/locklike all install to the same path
 # (/usr/share/sddm/themes/caelestia) and conflict with each other, but
 # none of them is literally a package named "caelestia-sddm" — that's
-# just the virtual name each one `provides`. So: ask pacman which real
+# just the virtual name each one `provides`. Ask pacman which real
 # package currently provides it (if any), and only remove it if that's
-# not already the one we're about to install — `pacman -Qq caelestia-sddm`
-# resolves through the provides and would otherwise match TARGET_PKG on
-# an idempotent re-run, and `pacman -R` can't resolve a virtual name on
-# its own (that's what broke here: it tried to -R "caelestia-sddm" itself
-# and pacman errored with "target not found").
+# not already the target — `pacman -R` can't resolve a virtual name on
+# its own, and `-Qq caelestia-sddm` would otherwise resolve straight to
+# TARGET_PKG on an idempotent re-run.
 current_provider="$(pacman -Qq caelestia-sddm 2>/dev/null || true)"
 if [[ -n "$current_provider" && "$current_provider" != "$TARGET_PKG" ]]; then
   echo "Removing conflicting theme variant: $current_provider"
@@ -35,12 +33,11 @@ yay -S --needed --noconfirm --answerclean None --answerdiff None --answeredit No
 # The package's own post-install hook already:
 #  - writes /etc/sddm.conf.d/caelestia.conf -> [Theme] Current=caelestia
 #  - copies theme.conf.template to ~/.config/caelestia/templates/sddm-theme.conf
-#    (this repo tracks that file — dotfiles/install.sh's symlink takes over
-#    if it lands there first, or gets backed up if the package wrote a real
-#    file there first; either order is safe)
+#    (this repo tracks that file — run import.sh to bring in the tracked
+#    version, or export.sh to capture whatever the package wrote)
 # cli.json (also tracked by this repo) already has the wallpaper/theme
 # postHook wired to "$SYNC_SCRIPT --posthook", so color sync works as soon
-# as it's symlinked in.
+# as cli.json is imported.
 
 if [[ -f "$SUDOERS_FILE" ]]; then
   echo "✓ passwordless sudo for sync.sh already configured"

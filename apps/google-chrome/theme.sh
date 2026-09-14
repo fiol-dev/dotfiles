@@ -5,8 +5,9 @@ set -euo pipefail
 
 FLAGS_FILE="$HOME/.config/google-chrome-flags.conf"
 
-if [[ -L "$FLAGS_FILE" ]]; then
-  echo "= $FLAGS_FILE is already managed by dotfiles/install.sh"
+if [[ -e "$FLAGS_FILE" ]]; then
+  echo "= $FLAGS_FILE already exists"
+  echo "  (run import.sh to bring in the tracked version from this repo, if it differs)"
 else
   mkdir -p "$(dirname "$FLAGS_FILE")"
   cat > "$FLAGS_FILE" <<'EOF'
@@ -17,7 +18,7 @@ else
 --password-store=gnome-libsecret
 EOF
   echo "+ wrote $FLAGS_FILE"
-  echo "  (run dotfiles/install.sh to have this tracked/symlinked instead)"
+  echo "  (run export.sh to track this in the repo)"
 fi
 
 # caelestia's cli.json already has theme.enableChromium=true, so
