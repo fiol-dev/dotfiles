@@ -14,7 +14,12 @@ LINKS=(
   "home/.config/fish/functions:.config/fish/functions"
   "home/.config/fish/conf.d:.config/fish/conf.d"
   "home/.config/fish/completions:.config/fish/completions"
-  "home/.config/caelestia:.config/caelestia"
+  "home/.config/caelestia/cli.json:.config/caelestia/cli.json"
+  "home/.config/caelestia/shell.json:.config/caelestia/shell.json"
+  "home/.config/caelestia/hypr-user.lua:.config/caelestia/hypr-user.lua"
+  "home/.config/caelestia/hypr-vars.lua:.config/caelestia/hypr-vars.lua"
+  "home/.config/caelestia/user-config.fish:.config/caelestia/user-config.fish"
+  "home/.config/caelestia/templates:.config/caelestia/templates"
   "home/.config/VSCodium/User:.config/VSCodium/User"
   "home/.config/codium-flags.conf:.config/codium-flags.conf"
   "home/.config/google-chrome-flags.conf:.config/google-chrome-flags.conf"
@@ -56,4 +61,12 @@ echo
 if [[ -d "$BACKUP_DIR" ]]; then
   echo "Pre-existing files were moved to: $BACKUP_DIR"
 fi
+
+if [[ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]] && command -v hyprctl &>/dev/null; then
+  echo "Reloading Hyprland config (hyprctl reload)..."
+  hyprctl reload
+else
+  echo "(hyprctl reload skipped — Hyprland isn't running in this session)"
+fi
+
 echo "Done. Restart fish (or 'exec fish') to pick up shell changes."

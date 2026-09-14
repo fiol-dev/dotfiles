@@ -38,13 +38,18 @@ package install (extension restore, flags files, etc), or run each
   `fish_plugins`. `fish_variables` is deliberately *not* tracked — it's
   local session/universal-variable state, not portable config.
 - **bash** — `.bashrc`.
-- **caelestia** — everything under `~/.config/caelestia/` (`cli.json`,
+- **caelestia** — individual files under `~/.config/caelestia/` (`cli.json`,
   `shell.json`, `hypr-user.lua`, `hypr-vars.lua`, `user-config.fish`,
-  `monitors/`, `templates/`). Do **not** hand-edit `~/.config/hypr/`
-  directly — caelestia owns that and update conflicts are the result;
-  `hypr-user.lua`/`hypr-vars.lua` are the sanctioned override points.
-  `monitors/` is hardware-specific (currently `eDP-1` + `DP-3`) — adjust
-  output names on a new machine.
+  `templates/`), linked one by one rather than the whole directory. Do
+  **not** hand-edit `~/.config/hypr/` directly — caelestia owns that and
+  update conflicts are the result; `hypr-user.lua`/`hypr-vars.lua` are the
+  sanctioned override points.
+  `~/.config/caelestia/monitors/` is deliberately *not* tracked — it's
+  per-machine output config (monitor names/scale/position), not portable
+  between machines. Linking file-by-file instead of the whole directory
+  also means `install.sh` never touches it.
+  `install.sh` runs `hyprctl reload` at the end (when Hyprland is actually
+  running) so these changes take effect immediately.
 - **VSCodium** — `settings.json`, `keybindings.json` (symlinked), plus
   `apps/vscodium/extensions.txt` (restored via `codium --install-extension`,
   regenerate with `codium --list-extensions`).
