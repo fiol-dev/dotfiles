@@ -39,17 +39,33 @@ package install (extension restore, flags files, etc), or run each
   local session/universal-variable state, not portable config.
 - **bash** — `.bashrc`.
 - **caelestia** — individual files under `~/.config/caelestia/` (`cli.json`,
-  `shell.json`, `hypr-user.lua`, `hypr-vars.lua`, `user-config.fish`,
-  `templates/`), linked one by one rather than the whole directory. Do
-  **not** hand-edit `~/.config/hypr/` directly — caelestia owns that and
-  update conflicts are the result; `hypr-user.lua`/`hypr-vars.lua` are the
+  `shell.json`, `hypr-vars.lua`, `user-config.fish`, `templates/`), linked
+  one by one rather than the whole directory. Do **not** hand-edit
+  `~/.config/hypr/` directly — caelestia owns that and update conflicts
+  are the result; `hypr-vars.lua` (and `hypr-user.lua`, see below) are the
   sanctioned override points.
   `~/.config/caelestia/monitors/` is deliberately *not* tracked — it's
   per-machine output config (monitor names/scale/position), not portable
   between machines. Linking file-by-file instead of the whole directory
   also means `install.sh` never touches it.
+  `hypr-user.lua` is **not tracked either**, for the same reason — the
+  version that used to be here hardcoded this machine's actual monitor
+  layout (`eDP-1`/`DP-3`, specific scale/mode), which would silently apply
+  the wrong monitor config on a different machine. `hypr-user.lua.example`
+  ships instead, with the monitor block commented out — copy it to
+  `hypr-user.lua` and uncomment/adjust per `hyprctl monitors` on whatever
+  machine you're setting up. `hyprland.lua`'s own `maybe_create()` creates
+  an empty `hypr-user.lua` if none exists, so leaving it absent is safe
+  too (Hyprland just auto-detects monitors).
   `install.sh` runs `hyprctl reload` at the end (when Hyprland is actually
-  running) so these changes take effect immediately.
+  running) so these changes take effect immediately, and takes a full
+  `cp -r` snapshot of `~/.config/caelestia/` up front, unconditionally,
+  before touching anything — link_one's per-file backups only fire when a
+  symlink is actually being replaced, which doesn't help if something
+  *else* (caelestia's own shell/daemon, a package's post-install hook)
+  mangles the directory between runs. The snapshot lands in
+  `~/.dotfiles-backup/<timestamp>/.config/caelestia.full-snapshot/` and
+  covers untracked per-machine data like `monitors/` too.
   `templates/sddm-theme.conf` is the caelestia SDDM theme's (minimalistV2)
   user-customizable config — colors are templated (`#{{ primary.hex }}`
   etc.) and filled in by `sync.sh` on every wallpaper/theme change (see

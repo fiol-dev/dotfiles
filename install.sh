@@ -6,6 +6,19 @@ set -euo pipefail
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKUP_DIR="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
 
+# Belt-and-suspenders: snapshot the whole caelestia config dir up front,
+# unconditionally, before anything below touches it. link_one's per-file
+# backups only fire when a symlink actually gets replaced — they don't
+# help if something else (caelestia's shell/daemon, a package's
+# post-install hook) mangles ~/.config/caelestia between runs. A full
+# copy here means there's always a clean rollback point no matter what
+# happens next, including untracked per-machine data like monitors/.
+if [[ -d "$HOME/.config/caelestia" ]]; then
+  mkdir -p "$BACKUP_DIR/.config"
+  cp -r "$HOME/.config/caelestia" "$BACKUP_DIR/.config/caelestia.full-snapshot"
+  echo "Full snapshot of ~/.config/caelestia -> $BACKUP_DIR/.config/caelestia.full-snapshot"
+fi
+
 # repo-relative path : $HOME-relative target
 LINKS=(
   "home/.bashrc:.bashrc"
@@ -16,7 +29,6 @@ LINKS=(
   "home/.config/fish/completions:.config/fish/completions"
   "home/.config/caelestia/cli.json:.config/caelestia/cli.json"
   "home/.config/caelestia/shell.json:.config/caelestia/shell.json"
-  "home/.config/caelestia/hypr-user.lua:.config/caelestia/hypr-user.lua"
   "home/.config/caelestia/hypr-vars.lua:.config/caelestia/hypr-vars.lua"
   "home/.config/caelestia/user-config.fish:.config/caelestia/user-config.fish"
   "home/.config/caelestia/templates:.config/caelestia/templates"
