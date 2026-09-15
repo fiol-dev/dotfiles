@@ -77,7 +77,10 @@ individually.
   unit binding the agent to `$XDG_RUNTIME_DIR/ssh-agent.socket`; enabled
   by `apps/ssh-agent/install.sh`). `home/.config/fish/conf.d/ssh-agent.fish`
   (tracked as part of **fish** below) points `SSH_AUTH_SOCK` at that same
-  socket.
+  socket and `SSH_ASKPASS` at
+  [caelestia-ssh-askpass](https://github.com/fiol-dev/caelestia-ssh-askpass)
+  (a separate repo, cloned to `~/Projects/caelestia-ssh-askpass` and
+  installed by the same `apps/ssh-agent/install.sh`).
 - **caelestia** — individual files under `~/.config/caelestia/` (`cli.json`,
   `shell.json`, `hypr-vars.lua`, `user-config.fish`, `templates/`). Don't
   hand-edit `~/.config/hypr/` directly — caelestia regenerates it;
@@ -141,7 +144,7 @@ individually.
 | Docker | official repo: `docker`, `docker-compose`, `docker-buildx` | `apps/docker/install.sh` |
 | lazydocker | official repo `lazydocker` | `apps/lazydocker/install.sh` |
 | SDDM + caelestia theme | official repo `sddm` + AUR `caelestia-sddm-minimalistv2-git` | `apps/sddm/install.sh` |
-| ssh-agent | — | `apps/ssh-agent/install.sh` |
+| ssh-agent + askpass | [caelestia-ssh-askpass](https://github.com/fiol-dev/caelestia-ssh-askpass) | `apps/ssh-agent/install.sh` |
 
 `apps/claude-code/install.sh` installs Claude Code via Homebrew, adding
 it alongside any existing native/npm install at `/usr/bin/claude`; once
