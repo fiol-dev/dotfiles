@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Snapshot the safe, non-secret subset of PyCharm's config (keymaps, color
-# schemes, code styles) to a local, non-git backup directory. Auto-detects
-# the newest JetBrains/PyCharm* config dir under ~/.config/JetBrains.
+# schemes, code styles, templates) to a local, non-git backup directory.
+# Auto-detects the newest JetBrains/PyCharm* config dir under ~/.config/JetBrains.
 set -euo pipefail
 
 CFG_DIR="$(find "$HOME/.config/JetBrains" -maxdepth 1 -iname 'PyCharm*' -type d 2>/dev/null | sort | tail -n1)"

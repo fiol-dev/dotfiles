@@ -10,7 +10,7 @@
 # NOT included: options/ (jdk.table.xml has local SDK paths,
 # recentProjects.xml/trusted-paths.xml leak local project paths,
 # github.xml/gitlab.xml/googleLoginApplicationSettings.xml can hold auth
-# state), pycharm.key-style license files, workspace/, ssl/, tasks/.
+# state), workspace/, ssl/, tasks/.
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/config"

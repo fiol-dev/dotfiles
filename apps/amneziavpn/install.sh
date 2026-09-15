@@ -21,6 +21,6 @@ server root passwords in:
 That file is not tracked in this git repo (see .gitignore). Use
 apps/amneziavpn/backup-config.sh for a local, gpg-encrypted snapshot.
 
-The fish function `vpn-status` (in this repo) reports connection state by
-checking for the amn0 interface AmneziaWG brings up.
+caelestia's network widget (~/.config/caelestia/shell.json) is already
+configured to watch the amn0 interface AmneziaWG brings up.
 EOF
