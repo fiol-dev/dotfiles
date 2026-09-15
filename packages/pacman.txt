@@ -10,6 +10,7 @@ openssh
 rsync
 sshfs
 telegram-desktop
+uv
 
 # Docker (see apps/docker/install.sh for group/service setup)
 docker
