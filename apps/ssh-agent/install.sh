@@ -18,7 +18,12 @@ ASKPASS_REPO="$HOME/Projects/caelestia-ssh-askpass"
 if [[ ! -d "$ASKPASS_REPO" ]]; then
   echo "Cloning caelestia-ssh-askpass..."
   mkdir -p "$(dirname "$ASKPASS_REPO")"
-  git clone git@github.com:fiol-dev/caelestia-ssh-askpass.git "$ASKPASS_REPO"
+  # SSH_ASKPASS (set by ssh-agent.fish) points at the binary this script is
+  # about to install, so it doesn't exist yet — using it here would make ssh
+  # exec a missing file if the key needs a passphrase. Unset it for this one
+  # clone so ssh falls back to its normal terminal prompt / agent lookup.
+  env -u SSH_ASKPASS -u SSH_ASKPASS_REQUIRE \
+    git clone git@github.com:fiol-dev/caelestia-ssh-askpass.git "$ASKPASS_REPO"
 fi
 
 if [[ -x "$ASKPASS_REPO/install.sh" ]]; then
