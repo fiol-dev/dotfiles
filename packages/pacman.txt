@@ -22,7 +22,3 @@ pycharm-community-edition
 
 # Display manager (see apps/sddm/install.sh for the caelestia theme + sync setup)
 sddm
-
-# GUI passphrase prompt for ssh-agent (see apps/ssh-agent/install.sh for the
-# systemd --user service setup that goes with it)
-x11-ssh-askpass

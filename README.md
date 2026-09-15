@@ -77,8 +77,7 @@ individually.
   unit binding the agent to `$XDG_RUNTIME_DIR/ssh-agent.socket`; enabled
   by `apps/ssh-agent/install.sh`). `home/.config/fish/conf.d/ssh-agent.fish`
   (tracked as part of **fish** below) points `SSH_AUTH_SOCK` at that same
-  socket and forces passphrase prompts into an `x11-ssh-askpass` popup via
-  `SSH_ASKPASS`/`SSH_ASKPASS_REQUIRE=force`.
+  socket.
 - **caelestia** — individual files under `~/.config/caelestia/` (`cli.json`,
   `shell.json`, `hypr-vars.lua`, `user-config.fish`, `templates/`). Don't
   hand-edit `~/.config/hypr/` directly — caelestia regenerates it;
@@ -142,7 +141,7 @@ individually.
 | Docker | official repo: `docker`, `docker-compose`, `docker-buildx` | `apps/docker/install.sh` |
 | lazydocker | official repo `lazydocker` | `apps/lazydocker/install.sh` |
 | SDDM + caelestia theme | official repo `sddm` + AUR `caelestia-sddm-minimalistv2-git` | `apps/sddm/install.sh` |
-| ssh-agent + GUI askpass | official repo `x11-ssh-askpass` | `apps/ssh-agent/install.sh` |
+| ssh-agent | — | `apps/ssh-agent/install.sh` |
 
 `apps/claude-code/install.sh` installs Claude Code via Homebrew, adding
 it alongside any existing native/npm install at `/usr/bin/claude`; once
