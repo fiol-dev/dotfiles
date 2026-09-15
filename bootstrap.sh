@@ -11,7 +11,7 @@ set -euo pipefail
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DOTFILES_DIR/lib/ui.sh"
 
-apps=(homebrew claude-code vscodium google-chrome android-studio amneziavpn pycharm lazygit telegram-desktop discord docker lazydocker sddm)
+apps=(homebrew claude-code vscodium google-chrome android-studio amneziavpn pycharm lazygit telegram-desktop discord docker lazydocker sddm ssh-agent)
 
 if ! command -v rsync &>/dev/null; then
   ui_warn "Installing rsync (required by the sshput/sshget/sshsync fish functions)..."

@@ -42,8 +42,9 @@ its own standalone `apps/<name>/install.sh`.
 ## export.sh / import.sh
 
 Both walk the same grouped list in `lib/targets.sh` (bash, fish,
-caelestia, VSCodium, Chrome/Codium flags, Claude Code), plus wallpapers,
-which are discovered dynamically rather than listed statically.
+caelestia, VSCodium, Chrome/Codium flags, Claude Code, ssh-agent).
+Wallpapers used to be discovered dynamically here too; they now live in
+Google Drive instead (see **Wallpapers** below).
 
 **`export.sh`** — one-way, `$HOME` → repo. Copies whatever differs and
 prints a summary. No prompts, no backups, nothing committed for you.
@@ -72,6 +73,12 @@ individually.
   `fish_plugins`. `fish_variables` is not tracked (session/universal
   variable state).
 - **bash** — `.bashrc`.
+- **ssh-agent** — `~/.config/systemd/user/ssh-agent.service` (a `--user`
+  unit binding the agent to `$XDG_RUNTIME_DIR/ssh-agent.socket`; enabled
+  by `apps/ssh-agent/install.sh`). `home/.config/fish/conf.d/ssh-agent.fish`
+  (tracked as part of **fish** below) points `SSH_AUTH_SOCK` at that same
+  socket and forces passphrase prompts into an `x11-ssh-askpass` popup via
+  `SSH_ASKPASS`/`SSH_ASKPASS_REQUIRE=force`.
 - **caelestia** — individual files under `~/.config/caelestia/` (`cli.json`,
   `shell.json`, `hypr-vars.lua`, `user-config.fish`, `templates/`). Don't
   hand-edit `~/.config/hypr/` directly — caelestia regenerates it;
@@ -110,12 +117,13 @@ individually.
 - **Claude Code** — `~/.claude/settings.json` and `statusline-command.sh`.
   Everything else under `~/.claude/` (`.credentials.json`, `history.jsonl`,
   `sessions/`, `projects/`, `session-env/`, ...) is not tracked.
-- **Wallpapers** — the 41 static files directly under
-  `~/Pictures/Wallpapers/` (~235MB). `~/Pictures/Wallpapers/Animated/`
-  (~380MB of anime/video wallpapers) is not tracked; `export.sh`/`import.sh`
-  discover the flat file list dynamically and never touch that directory.
-  This repo is public and the wallhaven.cc images are third-party
-  downloads, not original work.
+- **Wallpapers** — not tracked in git (this repo is public; ~615MB of
+  wallhaven.cc/anime images was too much to keep in a public repo's
+  history). Both the 41 static files and `Animated/` live in
+  [Google Drive](https://drive.google.com/drive/folders/1FM-8uMKr4L5cfsjphGF-ZmVsYxe_yCys?usp=sharing)
+  instead — download them to `~/Pictures/Wallpapers/` by hand on a new
+  machine. `home/Pictures/Wallpapers/` is `.gitignore`d to keep them from
+  being re-added by accident.
 
 ## Apps
 
@@ -134,6 +142,7 @@ individually.
 | Docker | official repo: `docker`, `docker-compose`, `docker-buildx` | `apps/docker/install.sh` |
 | lazydocker | official repo `lazydocker` | `apps/lazydocker/install.sh` |
 | SDDM + caelestia theme | official repo `sddm` + AUR `caelestia-sddm-minimalistv2-git` | `apps/sddm/install.sh` |
+| ssh-agent + GUI askpass | official repo `x11-ssh-askpass` | `apps/ssh-agent/install.sh` |
 
 `apps/claude-code/install.sh` installs Claude Code via Homebrew, adding
 it alongside any existing native/npm install at `/usr/bin/claude`; once

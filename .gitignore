@@ -14,10 +14,8 @@ home/.claude/sessions/
 home/.claude/projects/
 home/.claude/session-env/
 
-# Never track the animated wallpaper videos — third-party, ~380MB, never
-# added by export.sh (it only ever copies the flat file list), but this
-# catches an accidental manual `git add` too.
-home/Pictures/Wallpapers/Animated/
+# Wallpapers are not tracked in git (see README).
+home/Pictures/Wallpapers/
 
 # Editor/OS noise
 .DS_Store

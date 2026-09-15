@@ -40,23 +40,6 @@ for group in "${TARGET_GROUPS[@]}"; do
   done
 done
 
-ui_header "Wallpapers (excluding Animated/)"
-if [[ -d "$HOME/Pictures/Wallpapers" ]]; then
-  mkdir -p "$DOTFILES_DIR/home/Pictures/Wallpapers"
-  while IFS= read -r -d '' f; do
-    name="$(basename "$f")"
-    dest="$DOTFILES_DIR/home/Pictures/Wallpapers/$name"
-    if [[ -e "$dest" ]] && cmp -s "$f" "$dest"; then
-      continue
-    fi
-    cp "$f" "$dest"
-    ui_changed "exported: Pictures/Wallpapers/$name"
-    CHANGED=$((CHANGED + 1))
-  done < <(find "$HOME/Pictures/Wallpapers" -maxdepth 1 -type f -print0)
-else
-  ui_skip "~/Pictures/Wallpapers not present on this machine"
-fi
-
 ui_header "Summary"
 if [[ "$CHANGED" -eq 0 ]]; then
   ui_ok "Nothing changed — repo already matches this machine."

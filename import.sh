@@ -92,24 +92,6 @@ for group in "${TARGET_GROUPS[@]}"; do
   fi
 done
 
-ui_header "Wallpapers (excluding Animated/)"
-if [[ -d "$DOTFILES_DIR/home/Pictures/Wallpapers" ]]; then
-  if confirm "Import wallpapers?"; then
-    if [[ -e "$HOME/Pictures/Wallpapers" ]]; then
-      mkdir -p "$BACKUP_DIR/Pictures/Wallpapers"
-      find "$HOME/Pictures/Wallpapers" -maxdepth 1 -type f -exec cp -t "$BACKUP_DIR/Pictures/Wallpapers/" {} + 2>/dev/null || true
-    fi
-    while IFS= read -r -d '' f; do
-      name="$(basename "$f")"
-      import_one "home/Pictures/Wallpapers/$name" "Pictures/Wallpapers/$name"
-    done < <(find "$DOTFILES_DIR/home/Pictures/Wallpapers" -maxdepth 1 -type f -print0)
-  else
-    ui_skip "declined — wallpapers left untouched"
-  fi
-else
-  ui_skip "no wallpapers tracked in repo"
-fi
-
 ui_header "Done"
 if [[ -d "$BACKUP_DIR" ]]; then
   echo "Backups: $BACKUP_DIR"

@@ -1,9 +1,7 @@
 # Shared list of tracked config, grouped for export.sh/import.sh.
 # Each group is "repo/relative/path:$HOME/relative/path" entries.
-# Wallpapers aren't listed here — export.sh/import.sh discover them
-# dynamically under home/Pictures/Wallpapers/.
 
-TARGET_GROUPS=(bash fish caelestia vscodium chrome_flags claude)
+TARGET_GROUPS=(bash fish caelestia vscodium chrome_flags claude ssh_agent)
 declare -A GROUP_LABEL=(
   [bash]="bash (.bashrc)"
   [fish]="fish (config, functions, conf.d, completions)"
@@ -11,6 +9,7 @@ declare -A GROUP_LABEL=(
   [vscodium]="VSCodium (settings.json, keybindings.json)"
   [chrome_flags]="Chrome/Codium launch flags"
   [claude]="Claude Code (settings.json, statusline-command.sh)"
+  [ssh_agent]="ssh-agent (systemd --user unit)"
 )
 
 GROUP_bash=(
@@ -45,4 +44,8 @@ GROUP_chrome_flags=(
 GROUP_claude=(
   "home/.claude/settings.json:.claude/settings.json"
   "home/.claude/statusline-command.sh:.claude/statusline-command.sh"
+)
+
+GROUP_ssh_agent=(
+  "home/.config/systemd/user/ssh-agent.service:.config/systemd/user/ssh-agent.service"
 )
