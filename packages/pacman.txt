@@ -1,12 +1,15 @@
 # Official-repo packages this setup relies on.
 # Install with: grep -vE '^\s*(#|$)' packages/pacman.txt | xargs -r sudo pacman -S --needed
+discord
 fish
-rsync
-openssh
-sshfs
 fzf
 git
 gnupg
+lazygit
+openssh
+rsync
+sshfs
+telegram-desktop
 
 # Docker (see apps/docker/install.sh for group/service setup)
 docker

@@ -128,7 +128,9 @@ individually.
 | Android Studio | AUR `android-studio` (Toolbox also works) | `apps/android-studio/install.sh` (+ `sync-config.sh`) |
 | AmneziaVPN | AUR `amneziavpn-bin` | `apps/amneziavpn/install.sh` |
 | PyCharm | official repo `pycharm-community-edition` (Toolbox also works) | `apps/pycharm/install.sh` (+ `sync-config.sh`) |
-| lazygit | AUR `lazygit-git` (replaces stable `lazygit`) | `apps/lazygit/install.sh` |
+| lazygit | official repo `lazygit` | `apps/lazygit/install.sh` |
+| Telegram Desktop | official repo `telegram-desktop` | `apps/telegram-desktop/install.sh` |
+| Discord | official repo `discord` | `apps/discord/install.sh` |
 | Docker | official repo: `docker`, `docker-compose`, `docker-buildx` | `apps/docker/install.sh` |
 | lazydocker | official repo `lazydocker` | `apps/lazydocker/install.sh` |
 | SDDM + caelestia theme | official repo `sddm` + AUR `caelestia-sddm-minimalistv2-git` | `apps/sddm/install.sh` |
